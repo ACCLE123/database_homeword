@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Result;
 import com.example.demo.entity.Student;
+import com.example.demo.entity.StudentVO;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,12 @@ public class StudentController {
     public Result<List<Student>> findAll() {
         List<Student> students = studentService.findAll();
         return Result.success(students);
+    }
+
+    @GetMapping("/course")
+    public Result<List<StudentVO>> findAllCourse() {
+        List<StudentVO> studentVOS = studentService.findAllCourse();
+        return Result.success(studentVOS);
     }
 
     @GetMapping("/{id}")

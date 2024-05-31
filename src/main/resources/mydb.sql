@@ -55,3 +55,7 @@ VALUES (1, 1, 90), -- Alice Johnson takes Mathematics on Monday
        (2, 4, 70), -- Bob Smith also takes Chemistry on Thursday
        (3, 1, 60); -- Charlie Brown also takes Mathematics on Monday
 
+-- trigger
+
+
+

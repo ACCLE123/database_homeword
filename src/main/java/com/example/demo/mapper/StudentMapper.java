@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.entity.Student;
+import com.example.demo.entity.StudentVO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface StudentMapper {
     void updateStudent(Student student);
 
     void deleteStudent(Integer id);
+
+    List<StudentVO> selectAllStudentCourse();
 }

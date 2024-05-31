@@ -36,5 +36,8 @@
         SELECT id, name
         FROM db_student
     </select>
+    <select id="selectAllStudentCourse" resultType="StudentVO">
+        SELECT * FROM student_course_view;
+    </select>
 
 </mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.StudentCourseMapper">
+    <insert id="add">
+        insert into db_student_course(student_id, course_id, grade) values(#{studentId}, #{courseId}, #{grade});
+    </insert>
+
+    <delete id="deleteByStudent" parameterType="java.lang.Integer">
+        delete from db_student_course where student_id = #{id}
+    </delete>
+    <delete id="deleteByCourse" parameterType="java.lang.Integer">
+        delete from db_student_course where course_id = #{id}
+    </delete>
+</mapper>
