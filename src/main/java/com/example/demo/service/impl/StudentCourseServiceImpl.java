@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Course;
 import com.example.demo.entity.StudentCourse;
 import com.example.demo.mapper.StudentCourseMapper;
 import com.example.demo.service.StudentCourseService;
@@ -17,5 +18,10 @@ public class StudentCourseServiceImpl implements StudentCourseService {
     @Override
     public void save(StudentCourse studentCourse) {
         studentCourseMapper.add(studentCourse);
+    }
+
+    @Override
+    public List<Course> findByStudentId(Integer id) {
+        return studentCourseMapper.findByStudentId(id);
     }
 }

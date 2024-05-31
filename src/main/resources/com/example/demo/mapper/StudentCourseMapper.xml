@@ -14,4 +14,7 @@
     <delete id="deleteByCourse" parameterType="java.lang.Integer">
         delete from db_student_course where course_id = #{id}
     </delete>
+    <select id="findByStudentId" resultType="com.example.demo.entity.Course">
+        select c.* from db_course c join db_student_course sc on c.id = sc.course_id where sc.student_id = #{id};
+    </select>
 </mapper>
