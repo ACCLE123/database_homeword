@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.CourseMapper">
+
+    <!-- Insert Course -->
+    <insert id="insertCourse" parameterType="com.example.demo.entity.Course" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_course (name, weekday, start_hour, start_minute, end_hour, end_minute)
+        VALUES (#{name}, #{weekday}, #{startHour}, #{startMinute}, #{endHour}, #{endMinute})
+    </insert>
+
+    <!-- Update Course -->
+    <update id="updateCourse" parameterType="com.example.demo.entity.Course">
+        UPDATE db_course
+        SET name = #{name},
+            weekday = #{weekday},
+            start_hour = #{startHour},
+            start_minute = #{startMinute},
+            end_hour = #{endHour},
+            end_minute = #{endMinute}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete Course -->
+    <delete id="deleteCourse" parameterType="java.lang.Integer">
+        DELETE FROM db_course WHERE id = #{id}
+    </delete>
+
+    <!-- Select Course by ID -->
+    <select id="selectCourseById" parameterType="java.lang.Integer" resultType="com.example.demo.entity.Course">
+        SELECT id, name, weekday, start_hour, start_minute, end_hour, end_minute
+        FROM db_course
+        WHERE id = #{id}
+    </select>
+
+    <!-- Select All Courses -->
+    <select id="selectAllCourses" resultType="com.example.demo.entity.Course">
+        SELECT id, name, weekday, start_hour, start_minute, end_hour, end_minute
+        FROM db_course
+    </select>
+
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.StudentMapper">
+
+    <!-- Insert a new student -->
+    <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_student (name)
+        VALUES (#{name})
+    </insert>
+
+    <!-- Update an existing student -->
+    <update id="updateStudent" parameterType="Student">
+        UPDATE db_student
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <!-- Delete a student by id -->
+    <delete id="deleteStudent" parameterType="java.lang.Integer">
+        DELETE FROM db_student
+        WHERE id = #{id}
+    </delete>
+
+    <!-- Select a student by id -->
+    <select id="selectStudentById" resultType="Student" parameterType="java.lang.Integer">
+        SELECT id, name
+        FROM db_student
+        WHERE id = #{id}
+    </select>
+
+    <!-- Select all students -->
+    <select id="selectAllStudents" resultType="Student">
+        SELECT id, name
+        FROM db_student
+    </select>
+
+</mapper>

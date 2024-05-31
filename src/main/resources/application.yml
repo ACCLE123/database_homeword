@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mydb
+    driver-class-name: org.postgresql.Driver
+
+mybatis:
+  type-aliases-package: com.example.demo.entity
+  configuration:
+    map-underscore-to-camel-case: on

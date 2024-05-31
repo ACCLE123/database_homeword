@@ -1,7 +1,8 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.entity.Result;
 import com.example.demo.entity.Student;
-import com.example.demo.repository.StudentRepository;
+import com.example.demo.mapper.StudentMapper;
 import com.example.demo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,34 +11,31 @@ import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository studentRepository;
-
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private StudentMapper studentMapper;
 
     @Override
     public List<Student> findAll() {
-        List<Student> students = studentRepository.findAll();
-        students.forEach(student -> student.getStudentCourses().size());
-        return students;
+        return studentMapper.selectAllStudents();
     }
 
     @Override
-    public Optional<Student> findById(Integer id) {
-        Optional<Student> student = studentRepository.findById(id);
-        student.ifPresent(s -> s.getStudentCourses().size());
-        return student;
+    public Student findById(Integer id) {
+        return studentMapper.selectStudentById(id);
     }
 
     @Override
-    public Student save(Student student) {
-        return studentRepository.save(student);
+    public void save(Student student) {
+        studentMapper.insertStudent(student);
     }
 
     @Override
     public void deleteById(Integer id) {
-        studentRepository.deleteById(id);
+        studentMapper.deleteStudent(id);
+    }
+
+    @Override
+    public void updateById(Student student) {
+        studentMapper.updateStudent(student);
     }
 }

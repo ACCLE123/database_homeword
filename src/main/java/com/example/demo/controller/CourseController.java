@@ -1,63 +1,51 @@
 package com.example.demo.controller;
 
+import com.example.demo.entity.Result;
 import com.example.demo.entity.Course;
 import com.example.demo.service.CourseService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/courses")
 public class CourseController {
 
-    private final CourseService courseService;
-
     @Autowired
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
-    }
+    private CourseService courseService;
 
     @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.findAll();
+    public Result<List<Course>> findAll() {
+        List<Course> courses = courseService.findAll();
+        return Result.success(courses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getCourseById(@PathVariable Integer id) {
-        Optional<Course> course = courseService.findById(id);
-        return course.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Result<Course> findById(@PathVariable Integer id) {
+        Course course = courseService.findById(id);
+        if (course != null) {
+            return Result.success(course);
+        } else {
+            return Result.failure("Course not found with id " + id);
+        }
     }
 
     @PostMapping
-    public Course createCourse(@RequestBody Course course) {
-        return courseService.save(course);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Course> updateCourse(@PathVariable Integer id, @RequestBody Course courseDetails) {
-        Optional<Course> optionalCourse = courseService.findById(id);
-        if (optionalCourse.isPresent()) {
-            Course course = optionalCourse.get();
-            BeanUtils.copyProperties(courseDetails, course, "id");
-            Course updatedCourse = courseService.save(course);
-            return ResponseEntity.ok(updatedCourse);
-
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Result<Void> save(@RequestBody Course course) {
+        courseService.save(course);
+        return Result.success();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCourse(@PathVariable Integer id) {
-        if (courseService.findById(id).isPresent()) {
-            courseService.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Result<Void> deleteById(@PathVariable Integer id) {
+        courseService.deleteById(id);
+        return Result.success(null);
+    }
+
+    @PutMapping()
+    public Result<Void> updateById(@RequestBody Course course) {
+        courseService.updateById(course);
+        return Result.success();
     }
 }
